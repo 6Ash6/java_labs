@@ -34,6 +34,7 @@ public class MainFrame extends JFrame{
 
     private  JTextField textFieldResult;
     private ButtonGroup radioButtons = new ButtonGroup();
+    private ButtonGroup radioButtons2 = new ButtonGroup();
     private Box hboxFormulaType = Box.createHorizontalBox();
     private Box hboxMem = Box.createHorizontalBox();
 
@@ -70,7 +71,8 @@ public class MainFrame extends JFrame{
                 //imagePane.updateUI();
             }
         });
-        radioButtons.add(button);
+
+        radioButtons2.add(button);
         hboxMem.add(button);
     }
 
@@ -84,7 +86,7 @@ public class MainFrame extends JFrame{
         addRadioButtonMem("Переменная 1", 1);
         addRadioButtonMem("Переменная 2", 2);
         addRadioButtonMem("Переменная 3", 3);
-        radioButtons.setSelected(radioButtons.getElements().nextElement().getModel(), true);
+        radioButtons2.setSelected(radioButtons2.getElements().nextElement().getModel(), true);
         hboxMem.add(Box.createHorizontalGlue());
         hboxMem.setBorder(BorderFactory.createLineBorder(Color.PINK));
 
@@ -154,12 +156,12 @@ public class MainFrame extends JFrame{
         hboxVariables.add(Box.createHorizontalGlue());
 
         JLabel labelForResult = new JLabel("Результат");
-        textFieldResult = new JTextField("0",10);
+        textFieldResult = new JTextField("0",20);
         textFieldResult.setMaximumSize(textFieldResult.getPreferredSize());
         Box hboxResult = Box.createHorizontalBox();
         hboxResult.add(Box.createHorizontalGlue());
         hboxResult.add(labelForResult);
-        hboxResult.add(Box.createHorizontalStrut(10));
+        hboxResult.add(Box.createHorizontalStrut(20));
         hboxResult.add(textFieldResult);
         hboxResult.add(Box.createHorizontalGlue());
         hboxResult.setBorder(BorderFactory.createLineBorder(Color.BLUE));
