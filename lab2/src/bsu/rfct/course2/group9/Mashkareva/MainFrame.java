@@ -33,6 +33,7 @@ public class MainFrame extends JFrame{
     private JTextField textFieldZ;
 
     private  JTextField textFieldResult;
+    private  JTextField textFieldM;
     private ButtonGroup radioButtons = new ButtonGroup();
     private ButtonGroup radioButtons2 = new ButtonGroup();
     private Box hboxFormulaType = Box.createHorizontalBox();
@@ -68,7 +69,7 @@ public class MainFrame extends JFrame{
             @Override
             public void actionPerformed(ActionEvent ev) {
                 MainFrame.this.memId = memId;
-                //imagePane.updateUI();
+                textFieldM.setText(Double.toString(mem[memId-1]));
             }
         });
 
@@ -94,8 +95,9 @@ public class MainFrame extends JFrame{
         buttonM.addActionListener(new ActionListener(){
             public void actionPerformed(ActionEvent ev){
                 try{
-                    mem[memId-1]+=Double.parseDouble(textFieldResult.getText());
-                    textFieldResult.setText(Double.toString(mem[memId-1]));
+                    mem[memId-1] += Double.parseDouble(textFieldResult.getText());
+                    textFieldM.setText(Double.toString(mem[memId-1]));
+
                 } catch (NumberFormatException ex){
                     JOptionPane.showMessageDialog(
                             MainFrame.this, "Ошибка в формате записи числа с плавающей точкой",
@@ -108,6 +110,7 @@ public class MainFrame extends JFrame{
             @Override
             public void actionPerformed(ActionEvent ev) {
                 mem[memId - 1] = 0;
+                textFieldM.setText("0");
             }
         });
         Box MButtons = Box.createHorizontalBox();
@@ -155,6 +158,18 @@ public class MainFrame extends JFrame{
         hboxVariables.add(textFieldZ);
         hboxVariables.add(Box.createHorizontalGlue());
 
+        JLabel labelForM = new JLabel("M+ ");
+        textFieldM = new JTextField("0",20);
+        textFieldM.setMaximumSize(textFieldM.getPreferredSize());
+        Box hboxM = Box.createHorizontalBox();
+        hboxM.add(Box.createHorizontalGlue());
+        hboxM.add(labelForM);
+        hboxM.add(Box.createHorizontalStrut(20));
+        hboxM.add(textFieldM);
+        hboxM.add(Box.createHorizontalGlue());
+        hboxM.setBorder(BorderFactory.createLineBorder(Color.BLUE));
+
+
         JLabel labelForResult = new JLabel("Результат");
         textFieldResult = new JTextField("0",20);
         textFieldResult.setMaximumSize(textFieldResult.getPreferredSize());
@@ -186,6 +201,7 @@ public class MainFrame extends JFrame{
                 }
             }
         });
+        
         JButton buttonReset = new JButton("Очистить поля");
         buttonReset.addActionListener(new ActionListener() {
             @Override
@@ -200,11 +216,10 @@ public class MainFrame extends JFrame{
 
 
         Box hboxButtons = Box.createHorizontalBox();
-        hboxButtons.add(Box.createHorizontalGlue());
         hboxButtons.add(buttonCalc);
         hboxButtons.add(Box.createHorizontalStrut(30));
-        hboxButtons.add(buttonReset);
         hboxButtons.add(Box.createHorizontalGlue());
+        hboxButtons.add(buttonReset);
         hboxButtons.setBorder(
                 BorderFactory.createLineBorder(Color.GREEN));
         getContentPane().add(hboxButtons, BorderLayout.SOUTH);
@@ -214,6 +229,7 @@ public class MainFrame extends JFrame{
         contentBox.add(Box.createVerticalGlue());
         contentBox.add(hboxFormulaType);
         contentBox.add(hboxVariables);
+        contentBox.add(hboxM);
         contentBox.add(hboxResult);
         contentBox.add(Box.createVerticalGlue());
         getContentPane().add(contentBox, BorderLayout.CENTER);
