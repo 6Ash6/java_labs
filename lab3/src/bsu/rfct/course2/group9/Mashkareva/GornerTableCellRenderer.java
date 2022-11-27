@@ -6,19 +6,20 @@ import java.awt.FlowLayout;
 import java.text.DecimalFormat;
 import java.text.DecimalFormatSymbols;
 import java.text.NumberFormat;
+import java.util.Objects;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTable;
 import javax.swing.table.TableCellRenderer;
 
-public class GornerTableCellRenderer implements TableCellRenderer{
+public class GornerTableCellRenderer implements TableCellRenderer {
     private JPanel panel = new JPanel();
-    private  JLabel label = new JLabel();
+    private JLabel label = new JLabel();
     private String needle = null;
     private DecimalFormat formatter =
-            (DecimalFormat)NumberFormat.getInstance();
+            (DecimalFormat) NumberFormat.getInstance();
 
-    public  GornerTableCellRenderer(){
+    public GornerTableCellRenderer() {
         formatter.setMaximumFractionDigits(5);
         formatter.setGroupingUsed(false);
         DecimalFormatSymbols dottedDouble = formatter.getDecimalFormatSymbols();
@@ -31,21 +32,26 @@ public class GornerTableCellRenderer implements TableCellRenderer{
     }
 
     public Component getTableCellRendererComponent(JTable table,
-                                                   Object value, boolean isSelected, boolean hasFocus, int row, int col){
+                                                   Object value, boolean isSelected, boolean hasFocus, int row, int col) {
         String formattedDouble;
         try {
 
 
-         formattedDouble = formatter.format(value);}
-     catch (Exception d){
-         if ((boolean)value)   formattedDouble = "true";
-         else formattedDouble = "false";
-     };
+            formattedDouble = formatter.format(value);
+        } catch (Exception d) {
+            if ((boolean) value) formattedDouble = "true";
+            else formattedDouble = "false";
+        }
+
         label.setText(formattedDouble);
-        if(col == 1  && FPartI(Double.parseDouble(formattedDouble))){
+        if (col == 1 && FPartI(Double.parseDouble(formattedDouble))) {
             panel.setBackground(Color.RED);
-        }else {
+        } else {
             panel.setBackground(Color.WHITE);
+        }
+
+        if (col == 1 && Objects.equals(needle, formattedDouble)) {
+            panel.setBackground(Color.GREEN);
         }
         return panel;
 
@@ -55,7 +61,7 @@ public class GornerTableCellRenderer implements TableCellRenderer{
         this.needle = needle;
     }
 
-    private boolean FPartI (double x){
+    private boolean FPartI(double x) {
         String arr[] = String.valueOf(x).split("\\.");
 
         return arr.length > 1 && arr[0].equals(arr[1]);

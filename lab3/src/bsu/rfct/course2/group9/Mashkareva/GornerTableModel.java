@@ -48,19 +48,20 @@ public class GornerTableModel extends AbstractTableModel {
 
 
     public String getColumnName(int col) {
-        switch (col) {
-            case 0:
-                return "Значение X";
-            case 1:
-                return "Значение многочлена";
-            case 2:
-                return "Взаимно простые";
-        }
-        return "";
+        return switch (col) {
+            case 0 -> "Значение X";
+            case 1 -> "Значение многочлена";
+            case 2 -> "Взаимно простые";
+            default -> "";
+        };
     }
 
     public Class<?> getColumnClass(int col) {
-        return Double.class;
+        return switch (col){
+            case(0), (1) -> Double.class;
+            case(2) -> Boolean.class;
+            default -> String.class;
+        };
     }
 
     private double calculateHorner(double x) {
@@ -71,7 +72,7 @@ public class GornerTableModel extends AbstractTableModel {
         return b;
     }
 
-    private boolean MutuallyPrime(double x) {
+    private Boolean MutuallyPrime(double x) {
 
         int FPart = (int) x;
         if(FPart == 0) return false;

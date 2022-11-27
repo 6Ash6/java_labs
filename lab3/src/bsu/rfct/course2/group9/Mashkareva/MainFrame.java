@@ -1,9 +1,6 @@
 package bsu.rfct.course2.group9.Mashkareva;
 
-import java.awt.BorderLayout;
-import java.awt.Color;
-import java.awt.Dimension;
-import java.awt.Toolkit;
+import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.DataOutputStream;
@@ -11,22 +8,8 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.PrintStream;
-import javax.swing.AbstractAction;
-import javax.swing.Action;
-import javax.swing.BorderFactory;
-import javax.swing.Box;
-import javax.swing.JButton;
-import javax.swing.JFileChooser;
-import javax.swing.JFrame;
-import javax.swing.JLabel;
-import javax.swing.JMenu;
-import javax.swing.JMenuBar;
-import javax.swing.JMenuItem;
-import javax.swing.JOptionPane;
-import javax.swing.JPanel;
-import javax.swing.JScrollPane;
-import javax.swing.JTable;
-import javax.swing.JTextField;
+import javax.lang.model.element.Name;
+import javax.swing.*;
 
 @SuppressWarnings("serial")
 public class MainFrame extends  JFrame {
@@ -38,10 +21,14 @@ public class MainFrame extends  JFrame {
     private JMenuItem saveToTextMenuItem;
     private JMenuItem saveToGraphicsMenuItem;
     private JMenuItem searchValueMenuItem;
+    private JMenuItem aboutMenuItem;
 
     private JTextField textFieldFrom;
     private JTextField textFieldTo;
     private JTextField textFieldStep;
+
+    private JLabel Name;
+    private JButton aboutВutton;
 
     private Box hBoxResult;
 
@@ -72,6 +59,39 @@ public class MainFrame extends  JFrame {
 
         JMenu helpMenu = new JMenu("Справка");
         menuBar.add(helpMenu);
+
+        Action aboutAction = new AbstractAction("Об Авторе") {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+
+                JDialog dialog = new JDialog();
+                dialog.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
+                dialog.setSize(360, 360);
+
+                Name = new JLabel("Машкарёва Наталья");
+                aboutВutton = new JButton();
+
+                aboutВutton.setHorizontalAlignment(SwingConstants.LEFT);
+                aboutВutton.setBorderPainted(false);
+                aboutВutton.setOpaque(false);
+                aboutВutton.setBackground(Color.WHITE);
+
+
+                Box box = Box.createVerticalBox();
+                box.add(Name);
+
+                Box hbox = Box.createHorizontalBox();
+                hbox.add(Box.createHorizontalStrut(20));
+                hbox.add(box);
+
+                dialog.getContentPane().add(hbox);
+
+                dialog.setVisible(true);
+            }
+        };
+
+        aboutMenuItem = helpMenu.add(aboutAction);
+        aboutMenuItem.setEnabled(true);
 
         Action saveToTextAction = new AbstractAction("Сохранить в текстовый файл") {
             public void actionPerformed(ActionEvent event) {
@@ -146,7 +166,7 @@ public class MainFrame extends  JFrame {
 
         hboxRange.setPreferredSize(new Dimension((int) (hboxRange.getMaximumSize().getWidth()),
                 (int) (hboxRange.getMinimumSize().getHeight()) * 2));
-        getContentPane().add(hboxRange, BorderLayout.NORTH);
+        getContentPane().add(hboxRange, BorderLayout.SOUTH);
 
         JButton buttonCalc = new JButton("Вычислить");
         buttonCalc.addActionListener(new ActionListener() {
@@ -205,7 +225,7 @@ public class MainFrame extends  JFrame {
         hboxButtons.add(Box.createHorizontalGlue());
         hboxButtons.setPreferredSize(new Dimension((int) (hboxButtons.getMaximumSize().getWidth()),
                 (int) (hboxButtons.getMinimumSize().getHeight()) * 2));
-        getContentPane().add(hboxButtons, BorderLayout.SOUTH);
+        getContentPane().add(hboxButtons, BorderLayout.NORTH);
         hBoxResult = Box.createHorizontalBox();
         hBoxResult.add(new JPanel());
         getContentPane().add(hBoxResult, BorderLayout.CENTER);
